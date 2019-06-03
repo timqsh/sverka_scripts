@@ -1,0 +1,3 @@
+#!/bin/sh
+pythonw .git/hooks/code-analysis.py --src-root=src/KonturSverka &
+python .git/hooks/version_tag.py

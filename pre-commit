@@ -1,0 +1,2 @@
+#!/bin/sh
+PYTHONIOENCODING=utf8 py .git/hooks/v8unpack.py --v8unpack=.git/hooks/v8unpack.exe --enterpriseVersion=8.3.14.1565 precommit --path=.
