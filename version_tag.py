@@ -1,9 +1,16 @@
 import re
 import subprocess
 
-current_branch = (
-    subprocess.check_output(["git", "symbolic-ref", "--short", "HEAD"]).decode().strip()
-)
+try:
+    current_branch = (
+        subprocess.check_output(
+            ["git", "symbolic-ref", "--short", "HEAD"], stderr=subprocess.PIPE
+        )
+        .decode()
+        .strip()
+    )
+except subprocess.CalledProcessError:
+    exit()
 if current_branch not in ["develop", "master"]:
     exit()
 
@@ -17,5 +24,8 @@ version = result.group(1)
 
 version = "/".join(version.rsplit(".", 1))
 
-tag_result = subprocess.check_output(["git", "tag", "-f", version])
-print(f"tagged version {version}")
+tag_result = subprocess.run(
+    ["git", "tag", version], stdout=subprocess.PIPE, stderr=subprocess.STDOUT
+)
+if tag_result.returncode == 0:
+    print(f"tagged version {version}")
