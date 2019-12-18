@@ -103,7 +103,7 @@ def check_returns(epf, diff):
                        in_diff(method, diff, module))
 
 def check_directive(epf, diff):
-    managed_forms = filter(lambda x: re.match(".*Форма.bsl$", x.full_name), epf.modules)
+    managed_forms = filter(lambda x: re.match(r".*Form\\Module.bsl$", x.full_name), epf.modules)
     for module in managed_forms:
         for method_name, method in module.methods.items():
             if not method.directive:
